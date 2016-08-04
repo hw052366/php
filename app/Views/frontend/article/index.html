@@ -1,0 +1,132 @@
+<{include file="../header.html"}>
+  
+<div id="divAll">
+	<div id="divPage">
+	<div id="divMiddle">
+		<div id="divTop">
+			<h1 id="BlogTitle"><a href="http://www.myblog.com">www.myblog.com</a></h1>
+			<h3 id="BlogSubTitle">Welcome to 我的博客</h3>
+		</div>
+		<div id="divNavBar">
+			<ul>
+				<li id="nvabar-item-index"><a href="?p=frontend&c=Article&a=index">首页</a></li><li id="navbar-page-2"><a href="">留言本</a></li>
+			</ul>
+		</div>
+
+		<div id="divMain">
+ <{foreach from=$articles key="key" item="article"}>
+<div class="post multi">
+	<h4 class="post-date"><{$article->date|date_format:"%Y-%m-%d %H:%M:%S"}></h4>
+	<h2 class="post-title"><a href="index.php?p=frontend&c=Article&a=content&id=<{$article->id}>" target="_self"><{$article->title}></a></h2>
+	<div class="post-body">
+		<{if $article->firstImageUrl}>
+		<img src="<{$article->firstImageUrl}>">
+		<{/if}>
+		<{$article->content|strip_tags|truncate:300:'....':true}>
+	</div>
+	<h5 class="post-tags"></h5>
+	<h6 class="post-footer">
+		作者: <{$article->user_name}>| 分类:<{$article->category_name}>| 阅读:<{$article->read_count}> | 赞:<{$article->good}> | 评论:<{$article->comment_count}></h6>
+</div>
+<{/foreach}>
+<div class="pagebar" >
+	<{$pagerButtons}>
+	&nbsp;&nbsp;
+	<form method="get" action="index.php">
+		<input type="text" name="page" size="11" value="<{$page}>"/>
+        <input type="hidden" name="category_id" value="<{$category_id}>">
+		<input type="hidden" value="<{$search}>" name="search">
+		<input type="hidden" value="frontend" name="p">
+		<input type="hidden" value="Article" name="c">
+		<input type="hidden" value="index" name="a">
+		<input type="submit" value="搜索" />
+	</form>
+
+</div>
+		</div>
+<div id="divSidebar">
+ 
+<dl class="function" id="divSearchPanel">
+<dt class="function_t">文章标题搜索</dt><dd class="function_c">
+
+<div>
+	<form name="search" method="post" action="index.php?p=frontend&c=Article&a=index">
+		<input type="text" name="search" size="11" value="<{$search}>"/>
+		<input type="hidden" value="<{$category_id}>" name="category_id">
+		<input type="submit" value="搜索" />
+	</form>
+</div>
+
+
+</dd>
+</dl> 
+<dl class="function" id="divCalendar">
+<dt style="display:none;"></dt><dd class="function_c">
+
+<div></div>
+
+
+</dd>
+</dl> 
+<dl class="function" id="divCatalog">
+<dt class="function_t">文章分类</dt><dd class="function_c">
+<ul>
+	<{foreach from=$categories item="category"}>
+	<li >
+		<a href="index.php?p=frontend&c=Article&a=index&category_id=<{$category->id}>&search=<{$search}>" ><{str_repeat('&nbsp;',$category->level*4)}><{$category->name}></a><span style="float:right"><{($category->id == $category_id)? "<a href='?p=frontend&c=Article&a=index&search=$search'>取消</a>" : ""}>(<{$category->article_count}>)</span>
+	</li>
+	<{/foreach}>
+	</ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divComments">
+<dt class="function_t">最新留言</dt><dd class="function_c">
+
+
+<ul></ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divArchives">
+<dt class="function_t">文章归档</dt><dd class="function_c">
+
+
+<ul></ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divFavorites">
+<dt class="function_t">网站收藏</dt><dd class="function_c">
+
+
+<ul><li><a href="" target="_blank">myblog社区</a></li><li><a href="" target="_blank">myblog应用中心</a></li></ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divLinkage">
+<dt class="function_t">友情链接</dt><dd class="function_c">
+
+
+<ul><li><a href="" target="_blank" title="myblog开源博客系统">myblog官网</a></li></ul>
+
+</dd>
+</dl> 
+<dl class="function" id="divMisc">
+<dt style="display:none;"></dt><dd class="function_c">
+
+
+<ul><li><a href="" target="_blank"><img src="web/<{$smarty.const.PLATFORM }>/image/logo/myblog.gif" height="31" width="88" alt="myblog" /></a></li><li><a href="" target="_blank"><img src="web/<{$smarty.const.PLATFORM }>/image/logo/rss.png" height="31" width="88" alt="订阅本站的 RSS 2.0 新闻聚合" /></a></li></ul>
+
+</dd>
+</dl>		</div>
+		<div id="divBottom">
+        	<h3 id="BlogCopyRight">
+                                            	Copyright © 2008-2028 PHP150912 All Rights Reserved            </h3>
+			<h4 id="BlogPowerBy">Powered by <a href="" title="myblog" target="_blank">myblog V1.0 Release 20151116</a></h4>
+		</div><div class="clear"></div>
+	</div><div class="clear"></div>
+	</div><div class="clear"></div>
+</div>
+</body>
+</html>
